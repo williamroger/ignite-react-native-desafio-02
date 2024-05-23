@@ -8,6 +8,7 @@ import {
 } from '@expo-google-fonts/nunito-sans';
 
 import { Home } from './src/screens/Home';
+import { Statistics } from './src/screens/Statistics';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -18,7 +19,7 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <StatusBar barStyle='dark-content' backgroundColor='transparent' translucent={true} />
-      { fontsLoaded ? <Home /> : <ActivityIndicator /> }
+      {fontsLoaded ? <Statistics /> : <ActivityIndicator /> }
     </ThemeProvider>
   );
 }
