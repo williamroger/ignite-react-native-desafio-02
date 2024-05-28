@@ -10,6 +10,7 @@ import {
 import { Home } from './src/screens/Home';
 import { Statistics } from './src/screens/Statistics';
 import { MealForm } from './src/screens/MealForm';
+import { Feedback } from './src/screens/Feedback';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -20,7 +21,7 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <StatusBar barStyle='dark-content' backgroundColor='transparent' translucent={true} />
-      {fontsLoaded ? <MealForm /> : <ActivityIndicator /> }
+      {fontsLoaded ? <Feedback type="outside" /> : <ActivityIndicator /> }
     </ThemeProvider>
   );
 }
