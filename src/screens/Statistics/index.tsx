@@ -13,7 +13,7 @@ interface StatisticsProps {
   isInTheDiet: boolean;
 }
 
-export function Statistics() {
+export default function Statistics() {
   const data = {
     title: '90,86%',
     isInTheDiet: true,

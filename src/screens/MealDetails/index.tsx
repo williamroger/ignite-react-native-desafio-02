@@ -23,7 +23,9 @@ const BadgeTexts = {
   outside: 'fora da dieta',
 }
 
-export function MealDetails({ type }: MealDetailsProps) {
+// { type }: MealDetailsProps
+
+export default function MealDetails() {
   return (
     <Container type={type}>
       <Header title="Refeição" />

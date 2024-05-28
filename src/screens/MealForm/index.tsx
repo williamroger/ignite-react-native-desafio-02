@@ -11,7 +11,7 @@ import {
   Label, 
 } from './styles';
 
-export function MealForm() {
+export default function MealForm() {
   return (
     <Container>
       <Header title="Nova refeição" />

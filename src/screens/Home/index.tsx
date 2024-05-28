@@ -1,5 +1,4 @@
 /* Components */ 
-import { View } from 'react-native';
 import { Button } from '../../components';
 import { PercentCard, Header, MealCard } from './components';
 
@@ -12,7 +11,7 @@ import {
   MealHeaderList,
 } from "./styles";
 
-export function Home() {
+export default function Home() {
   const data = [
     {
       title: '12.05.24',

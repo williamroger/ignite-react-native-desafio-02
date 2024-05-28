@@ -56,7 +56,8 @@ const FeedbackTexts = {
   }
 }
 
-export function Feedback({ type }: FeedbackProps) {
+// { type }: FeedbackProps
+export default function Feedback() {
   const { title, subtitle, image } = FeedbackTexts[type];
 
   return (
