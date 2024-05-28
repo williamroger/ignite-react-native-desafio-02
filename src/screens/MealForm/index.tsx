@@ -1,5 +1,6 @@
-import { Button } from '../../components/Button';
-import { Header, Input, TypeButton } from './components';
+import { Header, Button } from '../../components';
+import { Input, TypeButton } from './components';
+
 import { 
   Container, 
   Content, 

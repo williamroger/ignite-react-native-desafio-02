@@ -1,6 +1,6 @@
 /* Components */ 
 import { View } from 'react-native';
-import { Button } from '../../components/Button';
+import { Button } from '../../components';
 import { PercentCard, Header, MealCard } from './components';
 
 /* Styled Components */ 

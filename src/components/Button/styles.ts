@@ -24,7 +24,7 @@ export const Container = styled.TouchableOpacity<ButtonProps>`
   background-color: ${({ theme, variant }) => variant === 'solid' ? theme.colors.base.gray200 : 'transparent' };
   
   border-style: solid;
-  border-width: 1.5px;
+  border-width: 1px;
   border-color: ${({ theme }) => theme.colors.base.gray200 };
   border-radius: 6px;
 

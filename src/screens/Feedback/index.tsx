@@ -1,4 +1,4 @@
-import { Button } from '../../components/Button';
+import { Button } from '../../components';
 
 import insideIllustration from '../../assets/inside-illustration.png';
 import outsideIllustration from '../../assets/outside-illustration.png';

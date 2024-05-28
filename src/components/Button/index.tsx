@@ -17,7 +17,7 @@ interface ButtonProps extends TouchableOpacityProps {
   size?: ButtonSize;
 }
 
-export function Button({ title, icon, variant = 'solid', size = 'large', ...rest }: ButtonProps) {
+export default function Button({ title, icon, variant = 'solid', size = 'large', ...rest }: ButtonProps) {
   const ButtonIcons = {
     add: <IconPlus variant={variant} />,
     edit: <IconPencilSimpleLine variant={variant} />,
