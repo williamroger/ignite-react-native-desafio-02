@@ -1,6 +1,11 @@
+/* External */ 
+import { useNavigation } from '@react-navigation/native';
+
+/* Components */ 
 import { Header, Button } from '../../components';
 import { Input, TypeButton } from './components';
 
+/* Styled Components */ 
 import { 
   Container, 
   Content, 
@@ -12,6 +17,13 @@ import {
 } from './styles';
 
 export default function MealForm() {
+  const navigation = useNavigation();
+
+  function handleRegisterMeal() {
+    // add code here
+    navigation.navigate('home'); 
+  }
+
   return (
     <Container>
       <Header title="Nova refeição" />
@@ -31,7 +43,10 @@ export default function MealForm() {
             </WrapperTypeButton>
           </GroupTypeButton>
         </FormContent>
-        <Button title="Cadastrar refeição" />
+        <Button 
+          title="Cadastrar refeição" 
+          onPress={handleRegisterMeal}  
+        />
       </Content>
     </Container>
   )

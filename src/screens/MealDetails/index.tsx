@@ -27,7 +27,7 @@ const BadgeTexts = {
 
 export default function MealDetails() {
   return (
-    <Container type={type}>
+    <Container type="inside">
       <Header title="Refeição" />
 
       <Content>
@@ -38,7 +38,7 @@ export default function MealDetails() {
           <Text>12/08/2022 às 16:00</Text>
 
           <BadgeWrapper>
-            <Badge type="inside" title={BadgeTexts[type]} />
+            <Badge type="inside" title={BadgeTexts["inside"]} />
           </BadgeWrapper>
         </Informations>
 

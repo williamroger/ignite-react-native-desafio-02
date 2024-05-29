@@ -15,8 +15,10 @@ export const Container = styled.View`
 `;
 
 export const BackButton = styled.TouchableOpacity`
-  width: 24px;
-  height: 24px;
+  width: 34px;
+  height: 34px;
+  align-items: start;
+  justify-content: center;
 `;
 
 export const Content = styled.View`
@@ -29,9 +31,7 @@ export const Title = styled.Text`
   font-size: ${({ theme }) => theme.fontSize.lg}px;
   color: ${({ theme }) => theme.colors.base.gray100};
   text-align: center;
-  
-  width: 100%;
-  margin-left: -48px;
+  margin-left: -68px;
 `;
 
 export const Icon = styled(ArrowLeft).attrs(({ theme }) => ({

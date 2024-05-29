@@ -1,3 +1,6 @@
+/* External */ 
+import { TouchableOpacityProps } from 'react-native';
+
 /* Styled Components */ 
 import { 
   Container, 
@@ -8,15 +11,15 @@ import {
   Status 
 } from './styles';
 
-interface MealCardProps {
+interface MealCardProps extends TouchableOpacityProps {
   time: string;
   title: string;
   isInTheDiet: boolean;
 }
 
-export default function MealCard({ time, title, isInTheDiet }: MealCardProps) {
+export default function MealCard({ time, title, isInTheDiet, ...rest }: MealCardProps) {
   return (
-    <Container>
+    <Container {...rest}>
       <WrapperText>
         <Time>{time}</Time>
         <Divider />

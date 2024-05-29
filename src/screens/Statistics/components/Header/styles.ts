@@ -12,7 +12,12 @@ export const Container = styled.View`
   padding-right: 24px;
 `;
 
-export const BackButton = styled.TouchableOpacity``;
+export const BackButton = styled.TouchableOpacity`
+  width: 34px;
+  height: 34px;
+  align-items: start;
+  justify-content: center;
+`;
 
 export const Content = styled.View`
   width: 100%;

@@ -1,6 +1,6 @@
 import styled from "styled-components/native";
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { SectionList, StatusBar } from 'react-native';
+import { SectionList } from 'react-native';
 
 export const Container = styled.ScrollView`
   width: 100%;
@@ -11,9 +11,7 @@ export const Container = styled.ScrollView`
   padding-right: 24px;
 `;
 
-export const Content = styled(SafeAreaView)`
-  padding-top: ${StatusBar.currentHeight}+38px;
-`;
+export const Content = styled(SafeAreaView)``;
 
 export const Label = styled.Text`
   font-family: ${({ theme }) => theme.fontFamily.regular};

@@ -1,13 +1,30 @@
-import { Container, BackButton, Icon, Content, Title, Subtitle, } from './styles';
+/* External */ 
+import { useNavigation } from '@react-navigation/native';
+
+/* Styled Components */ 
+import { 
+  Container, 
+  BackButton, 
+  Icon, 
+  Content, 
+  Title, 
+  Subtitle, 
+} from './styles';
 
 interface HeaderProps {
   title: string;
 }
 
 export default function Header({ title }: HeaderProps) {
+  const navigation = useNavigation();
+  
+  function handleGoBack() {
+    navigation.goBack();
+  }
+
   return (
     <Container>
-      <BackButton>
+      <BackButton onPress={handleGoBack}>
         <Icon />
       </BackButton>
       <Content>

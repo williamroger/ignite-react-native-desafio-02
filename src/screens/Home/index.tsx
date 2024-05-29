@@ -1,3 +1,6 @@
+/* External */ 
+import { useNavigation } from '@react-navigation/native';
+
 /* Components */ 
 import { Button } from '../../components';
 import { PercentCard, Header, MealCard } from './components';
@@ -12,6 +15,8 @@ import {
 } from "./styles";
 
 export default function Home() {
+  const navigation = useNavigation();
+
   const data = [
     {
       title: '12.05.24',
@@ -55,16 +60,38 @@ export default function Home() {
     }
   ];
   
+  function handleGoStatistics() {
+    navigation.navigate('statistics');
+  }
+
+  function handleGoForm() {
+    navigation.navigate('form');
+  }
+
+  function handleGoDetails() {
+    navigation.navigate('details');
+  }
+
   return (
     <Container showsVerticalScrollIndicator={false} >
       <Content>
         <Header />
-        <PercentCard title="90,86%" isInTheDiet={true} />
+
+        <PercentCard 
+          title="90,86%" 
+          isInTheDiet={true}
+          onPress={handleGoStatistics} 
+        />
+        
         <Label>
           Refeições
         </Label>
         
-         <Button title="Nova refeição" icon="add" />
+        <Button 
+          title="Nova refeição" 
+          icon="add" 
+          onPress={handleGoForm}
+        />
 
         <MealCardList
           scrollEnabled={false}
@@ -75,6 +102,7 @@ export default function Home() {
               time={item.time}
               title={item.title}
               isInTheDiet={item.isInTheDiet}
+              onPress={handleGoDetails}
             />
           )}
           renderSectionHeader={({section: {title}}) => (
