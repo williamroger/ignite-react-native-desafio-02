@@ -1,8 +1,14 @@
+/* External */
+import { useRoute, useNavigation } from '@react-navigation/native';
+
+/* Components */ 
 import { Button } from '../../components';
 
+/* Assets */
 import insideIllustration from '../../assets/inside-illustration.png';
 import outsideIllustration from '../../assets/outside-illustration.png';
 
+/* Styled Components */
 import { 
   Container, 
   Header,
@@ -13,8 +19,8 @@ import {
   Image,
 } from './styles';
 
-interface FeedbackProps {
-  type: 'inside' | 'outside';
+type RouteParams = {
+  isInsideTheDiet: 'inside' | 'outside';
 }
 
 const FeedbackTexts = {
@@ -56,9 +62,17 @@ const FeedbackTexts = {
   }
 }
 
-// { type }: FeedbackProps
 export default function Feedback() {
-  const { title, subtitle, image } = FeedbackTexts[type];
+  const route = useRoute();
+  const navigation = useNavigation();
+
+  const { isInsideTheDiet } = route.params as RouteParams;
+ 
+  const { title, subtitle, image } = FeedbackTexts[isInsideTheDiet];
+
+  function handleGoHome() {
+    navigation.navigate('home');
+  }
 
   return (
     <Container>
@@ -67,11 +81,11 @@ export default function Feedback() {
         <Subtitle>
           {subtitle.map(text => {
             if (text.type === 'text') {
-              return <Text>{text.value}</Text>
+              return <Text key={text.value}>{text.value}</Text>
             } 
 
             if (text.type === 'bold') {
-              return <BoldText>{text.value}</BoldText>
+              return <BoldText key={text.value}>{text.value}</BoldText>
             }
           })}
         </Subtitle>
@@ -79,7 +93,11 @@ export default function Feedback() {
 
       <Image source={image}/>
 
-      <Button size="auto" title="Ir para a página inicial" />
+      <Button 
+        size="auto" 
+        title="Ir para a página inicial" 
+        onPress={handleGoHome}
+      />
     </Container>
   );
 }

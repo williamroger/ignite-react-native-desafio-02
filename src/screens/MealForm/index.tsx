@@ -6,6 +6,9 @@ import { useState } from 'react';
 import { Header, Button } from '../../components';
 import { Input, TypeButton } from './components';
 
+/* Storage */ 
+import { mealCreate } from '../../storage/meal/mealCreate';
+
 /* Styled Components */ 
 import { 
   Container, 
@@ -19,7 +22,7 @@ import {
   InputWrapper,
 } from './styles';
 
-type ErrorType = {
+type MealType = {
   name: string;
   description: string;
   date: string;
@@ -29,14 +32,14 @@ type ErrorType = {
 
 export default function MealForm() {
   const navigation = useNavigation();
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<MealType>({
     name: '',
     description: '',
     date: '',
     hour: '',
     isInsideTheDiet: '',
   });
-  const [errors, setErrors] = useState<ErrorType>({} as ErrorType);
+  const [errors, setErrors] = useState<MealType>({} as MealType);
 
   function formValidate() {
     const newErrors: any = {};
@@ -66,7 +69,7 @@ export default function MealForm() {
       return false;
     }
 
-    setErrors({} as ErrorType);
+    setErrors({} as MealType);
     return true;
   }
 
@@ -77,13 +80,12 @@ export default function MealForm() {
     })
   }
 
-  function handleRegisterMeal() {
+  async function handleRegisterMeal() {
     if (formValidate()) {
+      await mealCreate(JSON.stringify(formData));
       
-    } else {
-      
+      navigation.navigate('feedback', { isInsideTheDiet: formData.isInsideTheDiet }); 
     }
-    // navigation.navigate('home'); 
   }
 
   return (
