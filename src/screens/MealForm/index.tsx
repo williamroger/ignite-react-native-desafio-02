@@ -34,7 +34,7 @@ export default function MealForm() {
     description: '',
     date: '',
     hour: '',
-    isInsideTheDiet: null,
+    isInsideTheDiet: '',
   });
   const [errors, setErrors] = useState<ErrorType>({} as ErrorType);
 
@@ -55,6 +55,10 @@ export default function MealForm() {
 
     if (!formData.hour) {
       newErrors.hour = 'A hora é obrigatória';
+    }
+
+    if (!formData.isInsideTheDiet) {
+      newErrors.isInsideTheDiet = 'Está dentro da dieta é obrigatório.';
     }
 
     if (Object.keys(newErrors).length > 0) {
@@ -128,16 +132,17 @@ export default function MealForm() {
               <TypeButton 
                 type='inside' 
                 title="Sim" 
-                isActive={false} 
-                onPress={() => null} 
+                isActive={formData.isInsideTheDiet === 'inside'} 
+                onPress={() => handleChangeInput('isInsideTheDiet', 'inside')} 
               />
               <TypeButton 
                 type='outside' 
                 title="Não" 
-                isActive={true} 
-                onPress={() => null}
+                isActive={formData.isInsideTheDiet === 'outside'} 
+                onPress={() => handleChangeInput('isInsideTheDiet', 'outside')} 
               />
             </TypeButtonWrapper>
+            {errors?.isInsideTheDiet && <ErrorText>{errors.isInsideTheDiet}</ErrorText>}
           </GroupTypeButton>
         </FormContent>
         <Button 
