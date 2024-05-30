@@ -1,6 +1,8 @@
 /* External */ 
 import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
+import { Masks } from 'react-native-mask-input';
+import { TouchableWithoutFeedback, Keyboard } from 'react-native';
 
 /* Components */ 
 import { Header, Button } from '../../components';
@@ -29,6 +31,8 @@ type MealType = {
   hour: string;
   isInsideTheDiet: string;
 }
+
+const HOUR_MASK = [/\d/, /\d/, ":", /\d/, /\d/];
 
 export default function MealForm() {
   const navigation = useNavigation();
@@ -89,69 +93,75 @@ export default function MealForm() {
   }
 
   return (
-    <Container>
-      <Header title="Nova refeição" />
-      <Content>
-        <FormContent>
-          <InputWrapper>
-            <Input 
-              label="Nome" 
-              value={formData.name} 
-              onChangeText={(value) => handleChangeInput('name', value)}
-            />
-            {errors?.name && <ErrorText>{errors.name}</ErrorText>}
-          </InputWrapper>
-          <InputWrapper>
-            <Input 
-              label="Descrição" 
-              multiline={true} 
-              value={formData.description} 
-              onChangeText={(value) => handleChangeInput('description', value)} 
-            />
-            {errors?.description && <ErrorText>{errors.description}</ErrorText>}
-          </InputWrapper>
-          <DateWrapper>
-            <InputWrapper size="small">
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <Container>
+        <Header title="Nova refeição" />
+        <Content>
+          <FormContent>
+            <InputWrapper>
               <Input 
-                label="Data" 
-                value={formData.date} 
-                onChangeText={(value) => handleChangeInput('date', value)} 
+                label="Nome" 
+                value={formData.name} 
+                onChangeText={(value) => handleChangeInput('name', value)}
               />
-              {errors?.date && <ErrorText>{errors.date}</ErrorText>}
+              {errors?.name && <ErrorText>{errors.name}</ErrorText>}
             </InputWrapper>
-            <InputWrapper size="small">
+            <InputWrapper>
               <Input 
-                label="Hora" 
-                value={formData.hour} 
-                onChangeText={(value) => handleChangeInput('hour', value)} 
+                label="Descrição" 
+                multiline={true} 
+                value={formData.description} 
+                onChangeText={(value) => handleChangeInput('description', value)} 
               />
-              {errors?.hour && <ErrorText>{errors.hour}</ErrorText>}
+              {errors?.description && <ErrorText>{errors.description}</ErrorText>}
             </InputWrapper>
-          </DateWrapper>
-          <GroupTypeButton>
-            <Label>Está dentro da dieta?</Label>
-            <TypeButtonWrapper>
-              <TypeButton 
-                type='inside' 
-                title="Sim" 
-                isActive={formData.isInsideTheDiet === 'inside'} 
-                onPress={() => handleChangeInput('isInsideTheDiet', 'inside')} 
-              />
-              <TypeButton 
-                type='outside' 
-                title="Não" 
-                isActive={formData.isInsideTheDiet === 'outside'} 
-                onPress={() => handleChangeInput('isInsideTheDiet', 'outside')} 
-              />
-            </TypeButtonWrapper>
-            {errors?.isInsideTheDiet && <ErrorText>{errors.isInsideTheDiet}</ErrorText>}
-          </GroupTypeButton>
-        </FormContent>
-        <Button 
-          title="Cadastrar refeição" 
-          onPress={handleRegisterMeal}  
-        />
-      </Content>
-    </Container>
+            <DateWrapper>
+              <InputWrapper size="small">
+                <Input 
+                  label="Data" 
+                  value={formData.date} 
+                  keyboardType="number-pad"
+                  onChangeText={(value) => handleChangeInput('date', value)} 
+                  mask={Masks.DATE_DDMMYYYY}
+                />
+                {errors?.date && <ErrorText>{errors.date}</ErrorText>}
+              </InputWrapper>
+              <InputWrapper size="small">
+                <Input 
+                  label="Hora" 
+                  value={formData.hour} 
+                  keyboardType="number-pad"
+                  onChangeText={(value) => handleChangeInput('hour', value)} 
+                  mask={HOUR_MASK}
+                />
+                {errors?.hour && <ErrorText>{errors.hour}</ErrorText>}
+              </InputWrapper>
+            </DateWrapper>
+            <GroupTypeButton>
+              <Label>Está dentro da dieta?</Label>
+              <TypeButtonWrapper>
+                <TypeButton 
+                  type='inside' 
+                  title="Sim" 
+                  isActive={formData.isInsideTheDiet === 'inside'} 
+                  onPress={() => handleChangeInput('isInsideTheDiet', 'inside')} 
+                />
+                <TypeButton 
+                  type='outside' 
+                  title="Não" 
+                  isActive={formData.isInsideTheDiet === 'outside'} 
+                  onPress={() => handleChangeInput('isInsideTheDiet', 'outside')} 
+                />
+              </TypeButtonWrapper>
+              {errors?.isInsideTheDiet && <ErrorText>{errors.isInsideTheDiet}</ErrorText>}
+            </GroupTypeButton>
+          </FormContent>
+          <Button 
+            title="Cadastrar refeição" 
+            onPress={handleRegisterMeal}  
+          />
+        </Content>
+      </Container>
+    </TouchableWithoutFeedback>
   )
 }

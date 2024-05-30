@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components/native";
+import MaskInput from 'react-native-mask-input';
 
 export const Container = styled.View`
   width: 100%;
@@ -11,7 +12,7 @@ export const Label = styled.Text`
   margin-bottom: 5px;
 `;
 
-export const TextInput = styled.TextInput`
+export const TextInput = styled(MaskInput)`
   height: ${({ multiline }) => multiline ? 120 : 48}px;
   border-style: solid;
   border-width: 1px;
