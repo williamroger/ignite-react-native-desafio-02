@@ -25,11 +25,12 @@ import {
 } from './styles';
 
 export type MealType = {
+  id?: string;
   name: string;
   description: string;
   date: string;
   hour: string;
-  isInsideTheDiet: string;
+  isInsideTheDiet: 'inside' | 'outside' | '';
 }
 
 const HOUR_MASK = [/\d/, /\d/, ":", /\d/, /\d/];

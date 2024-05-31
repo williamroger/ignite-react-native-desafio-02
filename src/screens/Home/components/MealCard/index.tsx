@@ -1,6 +1,8 @@
 /* External */ 
 import { TouchableOpacityProps } from 'react-native';
 
+import { MealType } from '../../../MealForm';
+
 /* Styled Components */ 
 import { 
   Container, 
@@ -12,20 +14,19 @@ import {
 } from './styles';
 
 interface MealCardProps extends TouchableOpacityProps {
-  time: string;
-  title: string;
-  isInTheDiet: boolean;
+  data: MealType;
 }
 
-export default function MealCard({ time, title, isInTheDiet, ...rest }: MealCardProps) {
+export default function MealCard({ data, ...rest }: MealCardProps) {
+  const { hour, name, isInsideTheDiet } = data;
   return (
     <Container {...rest}>
       <WrapperText>
-        <Time>{time}</Time>
+        <Time>{hour}</Time>
         <Divider />
-        <Title>{title}</Title>
+        <Title>{name}</Title>
       </WrapperText>
-      <Status isInTheDiet={isInTheDiet} />
+      <Status isInsideTheDiet={isInsideTheDiet} />
     </Container>
   )
 }

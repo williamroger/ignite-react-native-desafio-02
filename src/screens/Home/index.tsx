@@ -1,64 +1,26 @@
 /* External */ 
-import { useNavigation } from '@react-navigation/native';
+import { useCallback, useEffect, useState } from 'react';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 
 /* Components */ 
 import { Button } from '../../components';
 import { PercentCard, Header, MealCard } from './components';
+
+/* Storage */ 
+import { MealListType, mealGetAll } from '../../storage/meal/mealGetAll';
 
 /* Styled Components */ 
 import { 
   Container, 
   Content, 
   Label,
-  MealCardList,
+  MealCardSectionList,
   MealHeaderList,
 } from "./styles";
 
 export default function Home() {
   const navigation = useNavigation();
-
-  const data = [
-    {
-      title: '12.05.24',
-      data: [
-        { time: '09:43', title: 'Sanduíche de Presunto', isInTheDiet: true },
-        { time: '10:30', title: 'Biscoito Treloso', isInTheDiet: false },
-        { time: '12:00', title: 'Feijoada Completa', isInTheDiet: false },
-        { time: '14:23', title: 'Whey com Creatina', isInTheDiet: true },
-        { time: '16:23', title: 'Maça com mel', isInTheDiet: true },
-      ]
-    },
-    {
-      title: '13.05.24',
-      data: [
-        { time: '09:43', title: 'Sanduíche de Presunto', isInTheDiet: true },
-        { time: '10:30', title: 'Biscoito Treloso', isInTheDiet: false },
-        { time: '12:00', title: 'Feijoada Completa', isInTheDiet: false },
-        { time: '14:23', title: 'Whey com Creatina', isInTheDiet: true },
-        { time: '16:23', title: 'Maça com mel', isInTheDiet: true },
-      ]
-    },
-    {
-      title: '14.05.24',
-      data: [
-        { time: '09:43', title: 'Sanduíche de Presunto', isInTheDiet: true },
-        { time: '10:30', title: 'Biscoito Treloso', isInTheDiet: false },
-        { time: '12:00', title: 'Feijoada Completa', isInTheDiet: false },
-        { time: '14:23', title: 'Whey com Creatina', isInTheDiet: true },
-        { time: '16:23', title: 'Maça com mel', isInTheDiet: true },
-      ]
-    },
-    {
-      title: '15.05.24',
-      data: [
-        { time: '09:43', title: 'Sanduíche de Presunto', isInTheDiet: true },
-        { time: '10:30', title: 'Biscoito Treloso', isInTheDiet: false },
-        { time: '12:00', title: 'Feijoada Completa', isInTheDiet: false },
-        { time: '14:23', title: 'Whey com Creatina', isInTheDiet: true },
-        { time: '16:23', title: 'Maça com mel', isInTheDiet: true },
-      ]
-    }
-  ];
+  const [meals, setMeals] = useState<MealListType[]>([]);
   
   function handleGoStatistics() {
     navigation.navigate('statistics');
@@ -71,6 +33,23 @@ export default function Home() {
   function handleGoDetails() {
     navigation.navigate('details');
   }
+
+  function formatDate(date: string) {
+    return date.replaceAll('/', '.');
+  }
+
+  async function fetchMeals() {
+    try {
+      const mealsStoraged = await mealGetAll();
+      setMeals(mealsStoraged);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useFocusEffect(useCallback(() => {
+    fetchMeals();
+  }, []));
 
   return (
     <Container showsVerticalScrollIndicator={false} >
@@ -93,20 +72,18 @@ export default function Home() {
           onPress={handleGoForm}
         />
 
-        <MealCardList
+        <MealCardSectionList
           scrollEnabled={false}
-          sections={data}
-          keyExtractor={(item) => item.time}
+          sections={meals}
+          keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
             <MealCard
-              time={item.time}
-              title={item.title}
-              isInTheDiet={item.isInTheDiet}
+              data={item}
               onPress={handleGoDetails}
             />
           )}
           renderSectionHeader={({section: {title}}) => (
-            <MealHeaderList>{title}</MealHeaderList>
+            <MealHeaderList>{formatDate(title)}</MealHeaderList>
           )}
           showsVerticalScrollIndicator={false}
         />

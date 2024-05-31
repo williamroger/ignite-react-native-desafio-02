@@ -1,6 +1,7 @@
 import styled from "styled-components/native";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { SectionList } from 'react-native';
+import { MealListType } from '../../storage/meal/mealGetAll';
 
 export const Container = styled.ScrollView`
   width: 100%;
@@ -22,7 +23,7 @@ export const Label = styled.Text`
   margin-bottom: 10px;
 `;
 
-export const MealCardList = styled(SectionList)`
+export const MealCardSectionList = styled(SectionList)`
   margin-top: 32px;
 `;
 

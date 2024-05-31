@@ -1,7 +1,7 @@
 import styled from "styled-components/native";
 
 interface StatusProps {
-  isInTheDiet: boolean;
+  isInsideTheDiet: 'inside' | 'outside' | '';
 }
 
 export const Container = styled.TouchableOpacity`
@@ -13,7 +13,7 @@ export const Container = styled.TouchableOpacity`
   align-items: center;
 
   border-style: solid;
-  border-width: 1.5px;
+  border-width: 1.1px;
   border-color: ${({ theme }) => theme.colors.base.gray500};
   border-radius: 6px;
 
@@ -53,5 +53,6 @@ export const Status = styled.View<StatusProps>`
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background-color: ${({ theme, isInTheDiet }) => isInTheDiet ? theme.colors.product.greenMid : theme.colors.product.redMid};
+  background-color: ${({ theme, isInsideTheDiet }) => 
+    isInsideTheDiet === 'inside' ? theme.colors.product.greenMid : theme.colors.product.redMid};
 `;

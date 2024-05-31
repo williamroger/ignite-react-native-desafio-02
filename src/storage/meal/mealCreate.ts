@@ -26,6 +26,7 @@ export async function mealCreate(mealData: MealType) {
       });
       mealsToStorage = JSON.stringify(newStoragedMeals);
     } else {
+      mealData.id = String(Math.floor(Math.random() * 1000));
       const newMealData = {
         title: mealData.date,
         data: [mealData],
