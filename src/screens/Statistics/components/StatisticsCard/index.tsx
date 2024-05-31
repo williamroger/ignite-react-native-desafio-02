@@ -4,7 +4,7 @@ type StatisticsCardTypes = 'default' | 'in-the-diet' | 'off-the-diet';
 
 interface StatisticsCardProps {
   variant?: StatisticsCardTypes;
-  title: string;
+  title: number;
   subtitle: string;
 }
 

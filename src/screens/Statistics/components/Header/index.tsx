@@ -12,7 +12,7 @@ import {
 } from './styles';
 
 interface HeaderProps {
-  title: string;
+  title: number;
 }
 
 export default function Header({ title }: HeaderProps) {
@@ -28,7 +28,7 @@ export default function Header({ title }: HeaderProps) {
         <Icon />
       </BackButton>
       <Content>
-        <Title>{title}</Title>
+        <Title>{`${title}%`}</Title>
         <Subtitle>das refeições dentro da dieta</Subtitle>
       </Content>
     </Container>

@@ -1,3 +1,6 @@
+/* External */ 
+import { useRoute } from '@react-navigation/native';
+
 /* Components */ 
 import { Header, StatisticsCard } from './components';
 
@@ -9,43 +12,58 @@ import {
   WrapperStatisticsCards 
 } from './styles';
 
-interface StatisticsProps {
-  isInTheDiet: boolean;
+type RouteParams = {
+  totalMeals: number,
+  totalMealsInside: number,
+  totalMealsOutside: number,
+  percentageOfMeals: number,
+  bestDietSequence: number,
+  isInsideTheDiet: boolean,
 }
 
 export default function Statistics() {
+  const route = useRoute();
+  const {
+    totalMeals,
+    totalMealsInside,
+    totalMealsOutside,
+    percentageOfMeals,
+    bestDietSequence,
+    isInsideTheDiet,
+  } = route.params as RouteParams;
+
   const data = {
     title: '90,86%',
     isInTheDiet: true,
   }
 
   return (
-    <Container isInTheDiet={data.isInTheDiet} >
-      <Header title={data.title} />
+    <Container isInsideTheDiet={isInsideTheDiet} >
+      <Header title={percentageOfMeals} />
 
       <Content>
         <Title>Estatísticas gerais</Title>
         <WrapperStatisticsCards>
           <StatisticsCard 
-            title="22" 
+            title={bestDietSequence} 
             subtitle="melhor sequência de pratos dentro da dieta" 
           />
         </WrapperStatisticsCards>
         <WrapperStatisticsCards>
           <StatisticsCard 
-            title="109"
+            title={totalMeals}
             subtitle="refeições registradas"
           />
         </WrapperStatisticsCards>
         <WrapperStatisticsCards>
           <StatisticsCard 
-            title="99" 
+            title={totalMealsInside}
             subtitle="refeições dentro da dieta"
             variant="in-the-diet"
           />
           <StatisticsCard 
-            title="10" 
-            subtitle="refeições dentro da dieta" 
+            title={totalMealsOutside} 
+            subtitle="refeições fora da dieta" 
             variant="off-the-diet"
           />
         </WrapperStatisticsCards>

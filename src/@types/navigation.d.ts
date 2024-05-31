@@ -7,7 +7,14 @@ export declare global {
       };
       form: undefined;
       details: undefined;
-      statistics: undefined;
+      statistics: {
+        totalMeals: number,
+        totalMealsInside: number,
+        totalMealsOutside: number,
+        percentageOfMeals: number,
+        bestDietSequence: number,
+        isInsideTheDiet: boolean,
+      };
     }
   }
 }

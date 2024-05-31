@@ -36,7 +36,7 @@ export default function Home() {
   const [statistics, setStatistics] = useState<StatisticsType>({} as StatisticsType);
 
   function handleGoStatistics() {
-    navigation.navigate('statistics');
+    navigation.navigate('statistics', statistics);
   }
 
   function handleGoForm() {

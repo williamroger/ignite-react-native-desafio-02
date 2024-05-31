@@ -1,13 +1,13 @@
 import styled from "styled-components/native";
 
 interface ContainerProps {
-  isInTheDiet: boolean;
+  isInsideTheDiet: boolean;
 }
 
 export const Container = styled.View<ContainerProps>`
   width: 100%;
   flex: 1;
-  background: ${({ theme, isInTheDiet }) => isInTheDiet ? theme.colors.product.greenLight : theme.colors.product.redLight};
+  background: ${({ theme, isInsideTheDiet }) => isInsideTheDiet ? theme.colors.product.greenLight : theme.colors.product.redLight};
 `;
 
 export const Content = styled.View`
