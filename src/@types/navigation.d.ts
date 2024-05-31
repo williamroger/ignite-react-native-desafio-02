@@ -6,7 +6,14 @@ export declare global {
         isInsideTheDiet: string;
       };
       form: undefined;
-      details: undefined;
+      details: {
+        id?: string;
+        name: string;
+        description: string;
+        date: string;
+        hour: string;
+        isInsideTheDiet: string;
+      };
       statistics: {
         totalMeals: number,
         totalMealsInside: number,

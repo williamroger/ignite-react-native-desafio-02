@@ -1,14 +1,15 @@
 import { Container, Icon, Title } from './styles';
 
 interface TypeButtonProps {
-  title: string;
-  type: 'inside' | 'outside';
+  isInsideTheDiet: 'inside' | 'outside' | '';
 }
 
-export default function Badge({ title, type }: TypeButtonProps) {
+export default function Badge({ isInsideTheDiet }: TypeButtonProps) {
+  const title = isInsideTheDiet === 'inside' ? 'dentro da dieta' : 'fora da dieta';
+  
   return (
     <Container>
-      <Icon type={type} />
+      <Icon isInsideTheDiet={isInsideTheDiet} />
       <Title>{title}</Title>
     </Container>
   )

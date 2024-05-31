@@ -1,7 +1,7 @@
 import styled from "styled-components/native";
 
 interface IconProps {
-  type: 'inside' | 'outside';
+  isInsideTheDiet: 'inside' | 'outside' | '';
 }
 
 export const Container = styled.View`
@@ -22,7 +22,7 @@ export const Icon = styled.View<IconProps>`
   height: 8px;
 
   border-radius: 50%;
-  background-color: ${({ theme, type }) => type === 'inside'
+  background-color: ${({ theme, isInsideTheDiet }) => isInsideTheDiet === 'inside'
     ? theme.colors.product.greenDark
     : theme.colors.product.redDark
   };

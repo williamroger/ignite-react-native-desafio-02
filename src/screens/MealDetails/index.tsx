@@ -1,3 +1,6 @@
+/* External */
+import { useRoute } from '@react-navigation/native';
+
 /* Components */ 
 import { Header, Button } from '../../components';
 import { Badge } from './components';
@@ -18,27 +21,32 @@ interface MealDetailsProps {
   type: 'inside' | 'outside';
 }
 
-const BadgeTexts = {
-  inside: 'dentro da dieta',
-  outside: 'fora da dieta',
+type RouteParams = {
+  id: string;
+  name: string;
+  description: string;
+  date: string;
+  hour: string;
+  isInsideTheDiet: 'inside' | 'outside' | '';
 }
 
-// { type }: MealDetailsProps
-
 export default function MealDetails() {
+  const route = useRoute();
+  const { id, name, description, date, hour, isInsideTheDiet } = route.params as RouteParams;
+
   return (
     <Container type="inside">
       <Header title="Refeição" />
 
       <Content>
         <Informations>
-          <Title>Sanduíche</Title>
-          <Text>Sanduíche de pão integral com atum e salada de alface e tomate</Text>
+          <Title>{name}</Title>
+          <Text>{description}</Text>
           <Label>Data e hora</Label>
-          <Text>12/08/2022 às 16:00</Text>
+          <Text>{date} às {hour}</Text>
 
           <BadgeWrapper>
-            <Badge type="inside" title={BadgeTexts["inside"]} />
+            <Badge isInsideTheDiet={isInsideTheDiet} />
           </BadgeWrapper>
         </Informations>
 

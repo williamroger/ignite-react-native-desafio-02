@@ -43,8 +43,8 @@ export default function Home() {
     navigation.navigate('form');
   }
 
-  function handleGoDetails() {
-    navigation.navigate('details');
+  function handleGoDetails(meal: MealType) {
+    navigation.navigate('details', meal);
   }
 
   function formatDate(date: string) {
@@ -133,7 +133,7 @@ export default function Home() {
           renderItem={({ item }) => (
             <MealCard
               data={item as MealType}
-              onPress={handleGoDetails}
+              onPress={() => handleGoDetails(item as MealType)}
             />
           )}
           renderSectionHeader={({section: {title}}) => (
