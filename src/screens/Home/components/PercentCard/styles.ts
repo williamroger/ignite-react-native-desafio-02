@@ -3,13 +3,13 @@ import { TouchableOpacity } from "react-native";
 import { ArrowUpRight } from 'phosphor-react-native';
 
 interface PercentCardProps {
-  isInTheDiet: boolean;
+  isInsideTheDiet: boolean;
 }
 
 export const Container = styled(TouchableOpacity)<PercentCardProps>`
   width: 100%;
   height: 102px;
-  background: ${({ theme, isInTheDiet }) => isInTheDiet ? theme.colors.product.greenLight : theme.colors.product.redLight};
+  background: ${({ theme, isInsideTheDiet }) => isInsideTheDiet ? theme.colors.product.greenLight : theme.colors.product.redLight};
   border-radius: 8px;
   
   justify-content: center;

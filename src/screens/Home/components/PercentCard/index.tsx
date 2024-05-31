@@ -5,14 +5,14 @@ import { TouchableOpacityProps } from 'react-native';
 import { Container, Title, Subtitle, Icon } from './styles';
 
 interface PercentCardProps extends TouchableOpacityProps {
-  title: string;
-  isInTheDiet: boolean;
+  title: number;
+  isInsideTheDiet: boolean;
 }
 
-export default function PercentCard({ title, isInTheDiet, ...rest }: PercentCardProps) {
+export default function PercentCard({ title, isInsideTheDiet, ...rest }: PercentCardProps) {
   return (
-    <Container isInTheDiet={isInTheDiet} {...rest}>
-      <Title>{title}</Title>
+    <Container isInsideTheDiet={isInsideTheDiet} {...rest}>
+      <Title>{`${title}%`}</Title>
       <Subtitle>das refeições dentro da dieta</Subtitle>
       <Icon />
     </Container>

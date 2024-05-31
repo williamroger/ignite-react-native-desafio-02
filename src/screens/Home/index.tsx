@@ -18,10 +18,19 @@ import {
   MealHeaderList,
 } from "./styles";
 
+type StatisticsType = {
+  totalMeals: number,
+  totalMealsInside: number,
+  totalMealsOutside: number,
+  percentageOfMeals: number,
+  isInsideTheDiet: boolean,
+}
+
 export default function Home() {
   const navigation = useNavigation();
   const [meals, setMeals] = useState<MealListType[]>([]);
-  
+  const [statistics, setStatistics] = useState<StatisticsType>({} as StatisticsType);
+
   function handleGoStatistics() {
     navigation.navigate('statistics');
   }
@@ -38,6 +47,25 @@ export default function Home() {
     return date.replaceAll('/', '.');
   }
 
+  function getMealsStatistics() {
+    const allMeals = meals.reduce((total, currentItem) => {
+      return total.concat(currentItem?.data as any);
+    }, []);
+    const totalMeals = allMeals.length;
+    const totalMealsInside = allMeals.filter(meal => meal?.isInsideTheDiet === 'inside').length;
+    const totalMealsOutside = allMeals.filter(meal => meal?.isInsideTheDiet === 'outside').length;
+    const percentageOfMeals = Number(Number((totalMealsInside / totalMeals) * 100).toFixed(2));
+    const isInsideTheDiet = totalMealsInside >= totalMealsOutside;
+    
+    setStatistics({
+      totalMeals,
+      totalMealsInside,
+      totalMealsOutside,
+      percentageOfMeals,
+      isInsideTheDiet,
+    })
+  }
+
   async function fetchMeals() {
     try {
       const mealsStoraged = await mealGetAll();
@@ -49,6 +77,7 @@ export default function Home() {
 
   useFocusEffect(useCallback(() => {
     fetchMeals();
+    getMealsStatistics();
   }, []));
 
   return (
@@ -57,8 +86,8 @@ export default function Home() {
         <Header />
 
         <PercentCard 
-          title="90,86%" 
-          isInTheDiet={true}
+          title={statistics.percentageOfMeals}
+          isInsideTheDiet={statistics.isInsideTheDiet}
           onPress={handleGoStatistics} 
         />
         
