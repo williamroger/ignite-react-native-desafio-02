@@ -1,5 +1,6 @@
 /* Extermal */ 
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import uuid from 'react-native-uuid';
 
 /* Storage */ 
 import { MEAL_COLLECTION } from "../storageConfig";
@@ -26,7 +27,7 @@ export async function mealCreate(mealData: MealType) {
       });
       mealsToStorage = JSON.stringify(newStoragedMeals);
     } else {
-      mealData.id = String(Math.floor(Math.random() * 1000));
+      mealData.id = String(uuid.v4());
       const newMealData = {
         title: mealData.date,
         data: [mealData],
