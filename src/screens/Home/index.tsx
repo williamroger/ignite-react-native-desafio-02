@@ -9,6 +9,9 @@ import { PercentCard, Header, MealCard } from './components';
 /* Storage */ 
 import { MealListType, mealGetAll } from '../../storage/meal/mealGetAll';
 
+/* Interface */
+import { MealType } from '../MealForm';
+
 /* Styled Components */ 
 import { 
   Container, 
@@ -47,8 +50,8 @@ export default function Home() {
     return date.replaceAll('/', '.');
   }
 
-  function getMealsStatistics() {
-    const allMeals = meals.reduce((total, currentItem) => {
+  function getMealsStatistics(mealsData: MealListType[]) {
+    const allMeals: MealType[] = mealsData.reduce((total, currentItem) => {
       return total.concat(currentItem?.data as any);
     }, []);
     const totalMeals = allMeals.length;
@@ -56,7 +59,7 @@ export default function Home() {
     const totalMealsOutside = allMeals.filter(meal => meal?.isInsideTheDiet === 'outside').length;
     const percentageOfMeals = Number(Number((totalMealsInside / totalMeals) * 100).toFixed(2));
     const isInsideTheDiet = totalMealsInside >= totalMealsOutside;
-    
+
     setStatistics({
       totalMeals,
       totalMealsInside,
@@ -70,6 +73,7 @@ export default function Home() {
     try {
       const mealsStoraged = await mealGetAll();
       setMeals(mealsStoraged);
+      getMealsStatistics(mealsStoraged);
     } catch (error) {
       console.log(error);
     }
@@ -77,7 +81,6 @@ export default function Home() {
 
   useFocusEffect(useCallback(() => {
     fetchMeals();
-    getMealsStatistics();
   }, []));
 
   return (
@@ -107,7 +110,7 @@ export default function Home() {
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
             <MealCard
-              data={item}
+              data={item as MealType}
               onPress={handleGoDetails}
             />
           )}
