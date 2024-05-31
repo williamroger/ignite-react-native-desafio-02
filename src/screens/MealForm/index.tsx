@@ -24,7 +24,7 @@ import {
   InputWrapper,
 } from './styles';
 
-type MealType = {
+export type MealType = {
   name: string;
   description: string;
   date: string;
@@ -86,7 +86,7 @@ export default function MealForm() {
 
   async function handleRegisterMeal() {
     if (formValidate()) {
-      await mealCreate(JSON.stringify(formData));
+      await mealCreate(formData);
       
       navigation.navigate('feedback', { isInsideTheDiet: formData.isInsideTheDiet }); 
     }
