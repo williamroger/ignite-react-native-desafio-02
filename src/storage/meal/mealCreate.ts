@@ -15,6 +15,8 @@ export async function mealCreate(mealData: MealType) {
     const mealsByDate = storagedMeals.find(meal => meal.title === mealData.date);
     let mealsToStorage = '';
 
+    mealData.id = String(uuid.v4());
+    
     if (mealsByDate) {
       const newStoragedMeals = storagedMeals.map(meal => {
         if (meal.title === mealData.date) {
@@ -27,7 +29,6 @@ export async function mealCreate(mealData: MealType) {
       });
       mealsToStorage = JSON.stringify(newStoragedMeals);
     } else {
-      mealData.id = String(uuid.v4());
       const newMealData = {
         title: mealData.date,
         data: [mealData],

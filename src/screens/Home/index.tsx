@@ -26,6 +26,7 @@ type StatisticsType = {
   totalMealsInside: number,
   totalMealsOutside: number,
   percentageOfMeals: number,
+  bestDietSequence: number,
   isInsideTheDiet: boolean,
 }
 
@@ -59,6 +60,20 @@ export default function Home() {
     const totalMealsOutside = allMeals.filter(meal => meal?.isInsideTheDiet === 'outside').length;
     const percentageOfMeals = totalMeals ? Number(Number((totalMealsInside / totalMeals) * 100).toFixed(2)) : 0;
     const isInsideTheDiet = totalMealsInside >= totalMealsOutside;
+    
+    let sequence = 0;
+    const bestDietSequence = allMeals.reduce((acc, item) => {
+      if (item.isInsideTheDiet === 'inside') {
+        sequence = sequence + 1;
+      } else {
+        if (sequence > acc) {
+          acc = sequence;
+          sequence = 0;
+        }
+      }
+
+      return acc;
+    }, 0);
 
     if (totalMeals) {
       setStatistics({
@@ -66,6 +81,7 @@ export default function Home() {
         totalMealsInside,
         totalMealsOutside,
         percentageOfMeals,
+        bestDietSequence,
         isInsideTheDiet,
       });
     }
@@ -74,7 +90,7 @@ export default function Home() {
   async function fetchMeals() {
     try {
       const mealsStoraged = await mealGetAll();
-      console.log('mealsStoraged ', mealsStoraged)
+      
       setMeals(mealsStoraged);
       getMealsStatistics(mealsStoraged);
     } catch (error) {
@@ -82,6 +98,7 @@ export default function Home() {
     }
   }
 
+ 
   useFocusEffect(useCallback(() => {
     fetchMeals();
   }, []));
