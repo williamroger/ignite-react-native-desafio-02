@@ -1,5 +1,9 @@
 /* External */
-import { useRoute } from '@react-navigation/native';
+import { Alert } from 'react-native';
+import { useRoute, useNavigation } from '@react-navigation/native';
+
+/* Storage */
+import { mealRemoveByDateAndId } from '../../storage/meal/mealRemoveByDateAndId';
 
 /* Components */ 
 import { Header, Button } from '../../components';
@@ -32,10 +36,35 @@ type RouteParams = {
 
 export default function MealDetails() {
   const route = useRoute();
+  const navigation = useNavigation();
+
   const { id, name, description, date, hour, isInsideTheDiet } = route.params as RouteParams;
 
+  async function removeMeal() {
+    await mealRemoveByDateAndId(date, id);
+    navigation.navigate('home');
+  }
+
+  async function handleRemoveMeal() {
+    Alert.alert(
+      '', 
+      'Deseja realmente excluir o registro da refeição?', 
+      [
+        {
+          text: 'Cancelar',
+          onPress: () => console.log('Cancelado pelo usuário.'),
+          style: 'cancel',
+        },
+        {
+          text: 'Sim, exluir',
+          onPress: () => removeMeal(),
+        }
+      ]
+    );
+  }
+
   return (
-    <Container type="inside">
+    <Container isInsideTheDiet={isInsideTheDiet}>
       <Header title="Refeição" />
 
       <Content>
@@ -52,7 +81,12 @@ export default function MealDetails() {
 
         <Footer>
           <Button title="Editar refeição" icon="edit" />
-          <Button title="Excluir refeição" variant="outline" icon="remove" />
+          <Button 
+            title="Excluir refeição" 
+            variant="outline" 
+            icon="remove"
+            onPress={handleRemoveMeal} 
+          />
         </Footer>
       </Content>
     </Container>

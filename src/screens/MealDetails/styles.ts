@@ -1,13 +1,13 @@
 import styled from "styled-components/native";
 
 interface ContainerProps {
-  type: 'inside' | 'outside';
+  isInsideTheDiet: 'inside' | 'outside' | '';
 }
 
 export const Container = styled.View<ContainerProps>`
   width: 100%;
   flex: 1;
-  background-color: ${({ theme, type }) => type === 'inside' 
+  background-color: ${({ theme, isInsideTheDiet }) => isInsideTheDiet === 'inside' 
     ? theme.colors.product.greenLight 
     : theme.colors.product.redLight};
 `;
