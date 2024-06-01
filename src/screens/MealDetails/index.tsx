@@ -38,10 +38,10 @@ export default function MealDetails() {
   const route = useRoute();
   const navigation = useNavigation();
 
-  const { id, name, description, date, hour, isInsideTheDiet } = route.params as RouteParams;
+  const mealData = route.params as RouteParams;
 
   async function removeMeal() {
-    await mealRemoveByDateAndId(date, id);
+    await mealRemoveByDateAndId(mealData.date, mealData.id);
     navigation.navigate('home');
   }
 
@@ -63,24 +63,32 @@ export default function MealDetails() {
     );
   }
 
+  function handleEditMeal() {
+    navigation.navigate('form', mealData);
+  }
+
   return (
-    <Container isInsideTheDiet={isInsideTheDiet}>
+    <Container isInsideTheDiet={mealData.isInsideTheDiet}>
       <Header title="Refeição" />
 
       <Content>
         <Informations>
-          <Title>{name}</Title>
-          <Text>{description}</Text>
+          <Title>{mealData.name}</Title>
+          <Text>{mealData.description}</Text>
           <Label>Data e hora</Label>
-          <Text>{date} às {hour}</Text>
+          <Text>{mealData.date} às {mealData.hour}</Text>
 
           <BadgeWrapper>
-            <Badge isInsideTheDiet={isInsideTheDiet} />
+            <Badge isInsideTheDiet={mealData.isInsideTheDiet} />
           </BadgeWrapper>
         </Informations>
 
         <Footer>
-          <Button title="Editar refeição" icon="edit" />
+          <Button 
+            title="Editar refeição" 
+            icon="edit" 
+            onPress={handleEditMeal}
+          />
           <Button 
             title="Excluir refeição" 
             variant="outline" 

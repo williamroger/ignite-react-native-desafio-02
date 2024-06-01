@@ -1,5 +1,5 @@
 /* External */ 
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute, } from '@react-navigation/native';
 import { useState } from 'react';
 import { Masks } from 'react-native-mask-input';
 import { TouchableWithoutFeedback, Keyboard } from 'react-native';
@@ -10,6 +10,7 @@ import { Input, TypeButton } from './components';
 
 /* Storage */ 
 import { mealCreate } from '../../storage/meal/mealCreate';
+import { mealUpdate } from '../../storage/meal/mealUpdate';
 
 /* Styled Components */ 
 import { 
@@ -33,17 +34,24 @@ export type MealType = {
   isInsideTheDiet: 'inside' | 'outside' | '';
 }
 
+type RouteParams = {
+  id: string;
+  name: string;
+  description: string;
+  date: string;
+  hour: string;
+  isInsideTheDiet: 'inside' | 'outside' | '';
+}
+
 const HOUR_MASK = [/\d/, /\d/, ":", /\d/, /\d/];
 
 export default function MealForm() {
+  const route = useRoute();
   const navigation = useNavigation();
-  const [formData, setFormData] = useState<MealType>({
-    name: '',
-    description: '',
-    date: '',
-    hour: '',
-    isInsideTheDiet: '',
-  });
+  const mealData = route.params as RouteParams || {};
+
+  const [formData, setFormData] = useState<MealType>(mealData);
+
   const [errors, setErrors] = useState<MealType>({} as MealType);
 
   function formValidate() {
@@ -87,7 +95,11 @@ export default function MealForm() {
 
   async function handleRegisterMeal() {
     if (formValidate()) {
-      await mealCreate(formData);
+      if (mealData.id) {
+        await mealUpdate(formData);
+      } else {
+        await mealCreate(formData);
+      }
       
       navigation.navigate('feedback', { isInsideTheDiet: formData.isInsideTheDiet }); 
     }
@@ -96,7 +108,7 @@ export default function MealForm() {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <Container>
-        <Header title="Nova refeição" />
+        <Header title={mealData.id ? 'Editar refeição' : 'Nova refeição'} />
         <Content>
           <FormContent>
             <InputWrapper>
@@ -158,7 +170,7 @@ export default function MealForm() {
             </GroupTypeButton>
           </FormContent>
           <Button 
-            title="Cadastrar refeição" 
+            title={mealData.id ? 'Salvar alterações' : 'Cadastrar refeição'} 
             onPress={handleRegisterMeal}  
           />
         </Content>
