@@ -27,9 +27,9 @@ Durante a implementação do código desse desafio foram utilizados os conceitos
 - Parâmetros de navegação
 
 Foram utilizadas também algumas bibliotecas como:
-[](https://styled-components.com/) - Para criação de componentes estilizados
-[](https://github.com/react-native-async-storage/async-storage) - Para persistência de dados no storage
-[](https://www.npmjs.com/package/react-native-uuid) - Para criação de IDs únicos
+[Styled-Components](https://styled-components.com/) - Para criação de componentes estilizados
+[AsyncStorage](https://github.com/react-native-async-storage/async-storage) - Para persistência de dados no storage
+[React Native UUID](https://www.npmjs.com/package/react-native-uuid) - Para criação de IDs únicos
 
 Além de conceitos básicos do JavaScript como os métodos de array:
 - map
